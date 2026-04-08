@@ -51,10 +51,13 @@ public class OtherSorts {
     //...
 
 
-
-
     //-------------------------------------Simple Radix Sort-------------------------------------//
-    //...
+    public static void radixSort(int[] arr) {
+        int max = Arrays.stream(arr).max().orElse(Integer.MAX_VALUE);
+        for (int exp = 1; max / exp > 0; exp *= 10) {
+            countingSortHelper(arr, exp);
+        }
+    }
 
 
 
@@ -216,21 +219,6 @@ public class OtherSorts {
 
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -403,10 +391,24 @@ public class OtherSorts {
         array[index1] = array[index2];
         array[index2] = temp;
     }
+
+    //Counting sort for values between 0 - 9 (needed for radix sort)
+    private static void countingSortHelper (int[] arr, int exp) {
+        int[] countArr = new int[10];
+        for (int val : arr) {
+            countArr[(val / exp) % 10]++;
+        }
+        for (int i = 1; i < 10; i++) {
+            countArr[i] = countArr[i] + countArr[i - 1];
+        }
+        int[] tmpArr = new int[arr.length];
+        for (int i = tmpArr.length - 1; i >= 0; i--) {
+            int current = arr[i];
+            int posInArr = countArr[(current / exp) % 10] - 1;
+            tmpArr[posInArr] = current;
+            countArr[(current / exp) % 10]--;
+        }
+        System.arraycopy(tmpArr, 0, arr, 0, arr.length);
+    }
 }
-
-
-
-
-
 
