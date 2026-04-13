@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class testingTools {
+    //Creates a nearly sorted array
     public static <E extends Comparable<E>> void edgeSort(E[] array, int deviation) { //Don't have to put in indexs in initial call
         edgeSort(array, 0, array.length - 1, deviation);
     }
@@ -51,6 +52,7 @@ public class testingTools {
         array[index2] = temp;
     }
 
+    //Generates a random array
     public static Integer[] arrayGenerator(int size, int min, int max) {
         Random gen = new Random();
         Integer[] arr = new Integer[size];
@@ -59,6 +61,7 @@ public class testingTools {
         }
         return arr;
     }
+    //Generates a random array
     public static Integer[] arrayGenerator(int size) {
         Random gen = new Random();
         Integer[] arr = new Integer[size];
@@ -68,71 +71,82 @@ public class testingTools {
         return arr;
     }
 
+    //Allows you to test multiple different sorts on a set of arrays.
     public static ArrayList<Long> chooseSort(String sortName, ArrayList<Integer[]> data) {
         ArrayList<Long> times = new ArrayList<>();
         //data.forEach(arr -> System.out.println(Arrays.toString(arr)));
+        long start;
+        long end;
         switch (sortName) {
             case "mergeSortSimple":
                 for (Integer[] nums : data) {
-                    long start = System.currentTimeMillis();
+                    start = System.nanoTime();
                     OtherSorts.mergeSortSimple(nums);
-                    long end = System.currentTimeMillis();
+                    end = System.nanoTime();
                     times.add(end - start);
                 }
                 return times;
             case "radixSort":
                 for (Integer[] nums : data) {
-                    long start = System.currentTimeMillis();
+                    start = System.nanoTime();
                     OtherSorts.radixSort(nums);
-                    long end = System.currentTimeMillis();
+                    end = System.nanoTime();
                     times.add(end - start);
                 }
                 return times;
             case "mergeSort":
                 for (Integer[] nums : data) {
-                    long start = System.currentTimeMillis();
+                    start = System.nanoTime();
                     OtherSorts.mergeSort(nums);
-                    long end = System.currentTimeMillis();
+                    end = System.nanoTime();
                     times.add(end - start);
                 }
                 return times;
             case "quickSort":
                 for (Integer[] nums : data) {
-                    long start = System.currentTimeMillis();
+                    start = System.nanoTime();
                     OtherSorts.quickSort(nums);
-                    long end = System.currentTimeMillis();
+                    end = System.nanoTime();
                     times.add(end - start);
                 }
                 return times;
             case "bottomUpMergeSort":
                 for (Integer[] nums : data) {
-                    long start = System.currentTimeMillis();
+                    start = System.nanoTime();
                     OtherSorts.bottomUpMergeSort(nums);
-                    long end = System.currentTimeMillis();
+                    end = System.nanoTime();
                     times.add(end - start);
                 }
                 return times;
             case "shellSort":
                 for (Integer[] nums : data) {
-                    long start = System.currentTimeMillis();
+                    start = System.nanoTime();
                     OtherSorts.shellSort(nums);
-                    long end = System.currentTimeMillis();
+                    end = System.nanoTime();
                     times.add(end - start);
                 }
                 return times;
             case "countingSort":
                 for (Integer[] nums : data) {
-                    long start = System.currentTimeMillis();
+                    start = System.nanoTime();
                     OtherSorts.countingSort(nums);
-                    long end = System.currentTimeMillis();
+                    end = System.nanoTime();
                     times.add(end - start);
                 }
                 return times;
             case "insertionSort":
                 for (Integer[] nums : data) {
-                    long start = System.currentTimeMillis();
+                    start = System.nanoTime();
                     OtherSorts.insertionSort(nums);
-                    long end = System.currentTimeMillis();
+                    end = System.nanoTime();
+                    times.add(end - start);
+                }
+                return times;
+            case "aruCountingSort":
+                for (Integer[] nums : data) {
+                    start = System.nanoTime();
+                    ARUCountingSort.callaruCS(nums);
+                    end = System.nanoTime();
                     times.add(end - start);
                 }
                 return times;
@@ -140,6 +154,7 @@ public class testingTools {
                 throw new IllegalArgumentException(sortName + " is not a valid sort name - Check sort prototypes in OtherSorts.java");
         }
     }
+    //Factory for chooseSort() sort input
     public static ArrayList<String> sortGenerator(String sortName, int n) {
         ArrayList<String> sort = new ArrayList<>();
         for (int i = 0; i < n; i++) {

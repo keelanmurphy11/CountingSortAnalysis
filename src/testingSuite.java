@@ -4,13 +4,14 @@ import java.util.Arrays;
 
 import static java.util.Arrays.stream;
 
+//Writes completely random data sets to a csv file so it can be used as a standard
 public class testingSuite {
     public static void writeRandomDataSets() {
         try {
             BufferedWriter writer = new BufferedWriter(
                     new FileWriter("randomData.csv"));
             for (int i = 10; i <= 100000; i *= 10) {
-                Integer[] arr = testingTools.arrayGenerator(i, 0, Integer.MAX_VALUE);
+                Integer[] arr = testingTools.arrayGenerator(i, 0, 1000);
                 StringBuilder out = new StringBuilder(Arrays.toString(arr));
                 out = new StringBuilder(out.substring(1, out.length() - 1));
                 writer.write(out.toString());
@@ -23,6 +24,8 @@ public class testingSuite {
                     + e.getMessage());
         }
     }
+
+    //Writes arrays that is nearly sorted. Edit the deviation in edgeSort to change level or ordering
     public static void writeNearlySortedDataSets() {
         try {
             BufferedWriter writer = new BufferedWriter(
@@ -42,6 +45,8 @@ public class testingSuite {
                     + e.getMessage());
         }
     }
+
+    //Reads a dataset into an integer array from a file
     public static ArrayList<Integer[]> readDataSet(String fileName) {
         ArrayList<Integer[]> data = new ArrayList<>();
 
@@ -69,12 +74,14 @@ public class testingSuite {
         }
         return data;
     }
+
+    //Formats a sort so it can be exported to a text file for analysis
     public static void testSort(ArrayList<String> sortNames, String fileInput, String fileOutput) {
-    StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (String sort : sortNames) {
             ArrayList<Integer[]> data = readDataSet(fileInput);
             ArrayList<Long> out = testingTools.chooseSort(sort, data);
-            sb.append(sort).append(": ");
+            sb.append(sort).append(", ");
             for (Long num : out) {
                 sb.append(num);
                 sb.append(", ");

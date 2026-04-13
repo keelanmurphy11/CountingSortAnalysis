@@ -401,7 +401,7 @@ public class OtherSorts {
         for (int i = 1; i < 10; i++) {
             countArr[i] = countArr[i] + countArr[i - 1];
         }
-        int[] tmpArr = new int[arr.length];
+        Integer[] tmpArr = new Integer[arr.length];
         for (int i = tmpArr.length - 1; i >= 0; i--) {
             int current = arr[i];
             int posInArr = countArr[(current / exp) % 10] - 1;
