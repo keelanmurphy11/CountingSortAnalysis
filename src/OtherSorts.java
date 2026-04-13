@@ -1,8 +1,8 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 public class OtherSorts {
 
@@ -52,8 +52,8 @@ public class OtherSorts {
 
 
     //-------------------------------------Simple Radix Sort-------------------------------------//
-    public static void radixSort(int[] arr) {
-        int max = Arrays.stream(arr).max().orElse(Integer.MAX_VALUE);
+    public static void radixSort(Integer[] arr) {
+        int max = Arrays.stream(arr).max(Comparator.naturalOrder()).orElse(Integer.MAX_VALUE);
         for (int exp = 1; max / exp > 0; exp *= 10) {
             countingSortHelper(arr, exp);
         }
@@ -298,7 +298,7 @@ public class OtherSorts {
 
 //This implementation might be better than the one in the study, we should test this one against it and see did the study purposely choose a bad implementation...
     //-------------------------------Counting Sort--------------------------------//
-    public static void countingSort(int[] array){
+    public static void countingSort(Integer[] array){
         if  (array == null || array.length < 2) return;
         int n =  array.length;
 
@@ -393,7 +393,7 @@ public class OtherSorts {
     }
 
     //Counting sort for values between 0 - 9 (needed for radix sort)
-    private static void countingSortHelper (int[] arr, int exp) {
+    private static void countingSortHelper (Integer[] arr, int exp) {
         int[] countArr = new int[10];
         for (int val : arr) {
             countArr[(val / exp) % 10]++;

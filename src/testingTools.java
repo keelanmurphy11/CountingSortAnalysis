@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class testingTools {
@@ -64,5 +66,85 @@ public class testingTools {
             arr[i] = gen.nextInt(Integer.MIN_VALUE, Integer.MAX_VALUE);
         }
         return arr;
+    }
+
+    public static ArrayList<Long> chooseSort(String sortName, ArrayList<Integer[]> data) {
+        ArrayList<Long> times = new ArrayList<>();
+        //data.forEach(arr -> System.out.println(Arrays.toString(arr)));
+        switch (sortName) {
+            case "mergeSortSimple":
+                for (Integer[] nums : data) {
+                    long start = System.currentTimeMillis();
+                    OtherSorts.mergeSortSimple(nums);
+                    long end = System.currentTimeMillis();
+                    times.add(end - start);
+                }
+                return times;
+            case "radixSort":
+                for (Integer[] nums : data) {
+                    long start = System.currentTimeMillis();
+                    OtherSorts.radixSort(nums);
+                    long end = System.currentTimeMillis();
+                    times.add(end - start);
+                }
+                return times;
+            case "mergeSort":
+                for (Integer[] nums : data) {
+                    long start = System.currentTimeMillis();
+                    OtherSorts.mergeSort(nums);
+                    long end = System.currentTimeMillis();
+                    times.add(end - start);
+                }
+                return times;
+            case "quickSort":
+                for (Integer[] nums : data) {
+                    long start = System.currentTimeMillis();
+                    OtherSorts.quickSort(nums);
+                    long end = System.currentTimeMillis();
+                    times.add(end - start);
+                }
+                return times;
+            case "bottomUpMergeSort":
+                for (Integer[] nums : data) {
+                    long start = System.currentTimeMillis();
+                    OtherSorts.bottomUpMergeSort(nums);
+                    long end = System.currentTimeMillis();
+                    times.add(end - start);
+                }
+                return times;
+            case "shellSort":
+                for (Integer[] nums : data) {
+                    long start = System.currentTimeMillis();
+                    OtherSorts.shellSort(nums);
+                    long end = System.currentTimeMillis();
+                    times.add(end - start);
+                }
+                return times;
+            case "countingSort":
+                for (Integer[] nums : data) {
+                    long start = System.currentTimeMillis();
+                    OtherSorts.countingSort(nums);
+                    long end = System.currentTimeMillis();
+                    times.add(end - start);
+                }
+                return times;
+            case "insertionSort":
+                for (Integer[] nums : data) {
+                    long start = System.currentTimeMillis();
+                    OtherSorts.insertionSort(nums);
+                    long end = System.currentTimeMillis();
+                    times.add(end - start);
+                }
+                return times;
+            default:
+                throw new IllegalArgumentException(sortName + " is not a valid sort name - Check sort prototypes in OtherSorts.java");
+        }
+    }
+    public static ArrayList<String> sortGenerator(String sortName, int n) {
+        ArrayList<String> sort = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            sort.add(sortName);
+        }
+        return sort;
     }
 }
