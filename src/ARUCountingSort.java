@@ -3,7 +3,7 @@ public class ARUCountingSort {
     //-------------------------------Trivial Counting Sort--------------------------------//
     //Exact implementation of Algorithm 2 pseudocode from paper 4
 
-    public static Integer[] aruCountingSort(Integer[] A, Integer[] B, Integer[] Q, Integer[] R, Integer k) {
+    public static int[] aruCountingSort(int[] A, int[] B, int[] Q, int[] R, int k) {
         //A, B, Q, R are arrays of length n, n, m+1 & m+1 respectively
         // m = ceil(root(k)),  k is max element in array A
 
@@ -66,7 +66,26 @@ public class ARUCountingSort {
         return A;
     }
 
-    public static Integer[] callaruCS(Integer[] A){
+    public static int callaruCSSpace(int[] A) {
+        if (A == null || A.length < 2) return A.length; //safety check
+        int n = A.length;
+        int size = n;
+
+        int k = A[0];
+        for (int x : A) if (x > k) k = x;
+
+        int m = (int) Math.ceil(Math.sqrt(k)); //need for making size of arrays
+
+        int[] B = new int[n];
+        int[] Q = new int[m + 1];     // quotient  array
+        int[] R = new int[m + 1];     // remainder array
+        size = size + n + 2 * m + 2;
+
+        aruCountingSort(A, B, Q, R, k);
+        return size;
+    }
+
+    public static int[] callaruCS(int[] A) {
         if (A == null || A.length < 2) return A; //safety check
         int n = A.length;
 
@@ -75,9 +94,9 @@ public class ARUCountingSort {
 
         int m = (int) Math.ceil(Math.sqrt(k)); //need for making size of arrays
 
-        Integer[] B = new Integer[n];
-        Integer[] Q = new Integer[m + 1];     // quotient  array
-        Integer[] R = new Integer[m + 1];     // remainder array
+        int[] B = new int[n];
+        int[] Q = new int[m + 1];     // quotient  array
+        int[] R = new int[m + 1];     // remainder array
 
         aruCountingSort(A, B, Q, R, k);
         return A;

@@ -10,14 +10,19 @@ public class testingSuite {
         try {
             BufferedWriter writer = new BufferedWriter(
                     new FileWriter("randomData.csv"));
-            for (int i = 10; i <= 100000; i *= 10) {
-                Integer[] arr = testingTools.arrayGenerator(i, 0, 1000);
+
+            //for (int i = 10; i <= 100000; i *= 10) {
+            int element = 10000;
+            for (int i = 0; i < 4; i++) {
+                int[] arr = testingTools.arrayGenerator(10000, 0, element - 1);
+                testingTools.insertElement(element - 1, arr);
                 StringBuilder out = new StringBuilder(Arrays.toString(arr));
                 out = new StringBuilder(out.substring(1, out.length() - 1));
                 writer.write(out.toString());
                 writer.newLine();
+                element *= 10;
             }
-                writer.close();
+            writer.close();
         }
         catch (IOException e) {
             System.out.println("An error occurred: "
@@ -31,7 +36,7 @@ public class testingSuite {
             BufferedWriter writer = new BufferedWriter(
                     new FileWriter("nearlySortedData.csv"));
             for (int i = 10; i <= 100000; i *= 10) {
-                Integer[] arr = testingTools.arrayGenerator(i, 0, Integer.MAX_VALUE);
+                int[] arr = testingTools.arrayGenerator(i, 0, Integer.MAX_VALUE);
                 testingTools.edgeSort(arr, 10);
                 StringBuilder out = new StringBuilder(Arrays.toString(arr));
                 out = new StringBuilder(out.substring(1, out.length() - 1));
@@ -47,24 +52,21 @@ public class testingSuite {
     }
 
     //Reads a dataset into an integer array from a file
-    public static ArrayList<Integer[]> readDataSet(String fileName) {
-        ArrayList<Integer[]> data = new ArrayList<>();
+    public static ArrayList<int[]> readDataSet(String fileName, int arrSize) {
+        ArrayList<int[]> data = new ArrayList<>();
 
         try{
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line;
-            int i = 10;
             while ((line = reader.readLine()) != null) {
-                Integer[] vals = new Integer[i];
+                int[] vals = new int[arrSize];
                 String[] strVals = line.split(", ");
-                for (int j = 0; j < i; j++) {
+                for (int j = 0; j < arrSize; j++) {
                     vals[j] = Integer.parseInt(strVals[j]);
                 }
                 //Clone needed so data isn't lost
                 data.add(vals.clone());
-                i *= 10;
             }
-
             reader.close();
         }
         catch (IOException e) {
@@ -79,7 +81,7 @@ public class testingSuite {
     public static void testSort(ArrayList<String> sortNames, String fileInput, String fileOutput) {
         StringBuilder sb = new StringBuilder();
         for (String sort : sortNames) {
-            ArrayList<Integer[]> data = readDataSet(fileInput);
+            ArrayList<int[]> data = readDataSet(fileInput, 10000);
             ArrayList<Long> out = testingTools.chooseSort(sort, data);
             sb.append(sort).append(", ");
             for (Long num : out) {

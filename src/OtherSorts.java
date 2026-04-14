@@ -115,7 +115,7 @@ public class OtherSorts {
 
     //-------------------------------------Optimised Quick Sort-------------------------------------//
     //Probably can optimise this further
-
+    /*
     public static <E extends Comparable <E>> void quickSort(E[] array){ //Don't have to put in indexs in initial call
         quickSort(array, 0, array.length - 1);
     }
@@ -158,6 +158,7 @@ public class OtherSorts {
         quickSort(array, lp+1, high_index);
     }
 
+     */
 
 
 
@@ -346,12 +347,12 @@ public class OtherSorts {
 //-------------------------------------Insertion Sort-------------------------------------//
 //Used in above sorting algorithms!!!!!!!!!!!!
 
-    public static <E extends Comparable<E>> void insertionSort(E[] array){
+    public static void insertionSort(int[] array){
         //start at index 1 as the first element has already sorted itself
         for(int i = 1; i < array.length; i++){
-            E temp = array[i]; //The element we are currently positioning
+            int temp = array[i]; //The element we are currently positioning
             int j = i-1;
-            while(j >= 0 && temp.compareTo(array[j]) < 0 ){
+            while(j >= 0 && temp < 0 ){
                 array[j+1] = array[j]; //shift to the right
                 j--;
             }
